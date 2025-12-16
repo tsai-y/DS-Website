@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資料結構測驗中心 | Quiz Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body>
+
+    <div class="quiz-app-container">
+        
+        <header class="quiz-header-nav">
+            <div class="brand">
+                <i class="fa-solid fa-graduation-cap"></i> 資料結構測驗中心
+            </div>
+            <a href="index.html" class="back-link"><i class="fa-solid fa-house"></i> 回教學首頁</a>
+        </header>
+
+        <div id="menu-screen" class="screen active">
+            <div class="menu-intro">
+                <h1>請選擇測驗範圍</h1>
+                <p>每個章節題庫皆包含 30 道精選試題，系統將隨機抽出 10 題進行測驗。</p>
+            </div>
+
+            <div class="chapter-grid">
+                <div class="chapter-card" onclick="startQuiz('ch1')">
+                    <div class="icon-box"><i class="fa-solid fa-code"></i></div>
+                    <h3>Chapter 1</h3>
+                    <p>演算法 & 指標</p>
+                    <span class="badge">隨機 10 題</span>
+                </div>
+                <div class="chapter-card" onclick="startQuiz('ch2')">
+                    <div class="icon-box"><i class="fa-solid fa-layer-group"></i></div>
+                    <h3>Chapter 2</h3>
+                    <p>陣列 (Arrays)</p>
+                    <span class="badge">隨機 10 題</span>
+                </div>
+                <div class="chapter-card" onclick="startQuiz('ch3')">
+                    <div class="icon-box"><i class="fa-solid fa-bars-staggered"></i></div>
+                    <h3>Chapter 3</h3>
+                    <p>堆疊 / 佇列 / 鏈結</p>
+                    <span class="badge">隨機 10 題</span>
+                </div>
+                <div class="chapter-card" onclick="startQuiz('ch4')">
+                    <div class="icon-box"><i class="fa-solid fa-tree"></i></div>
+                    <h3>Chapter 4</h3>
+                    <p>樹 (Trees)</p>
+                    <span class="badge">隨機 10 題</span>
+                </div>
+                <div class="chapter-card" onclick="startQuiz('ch5')">
+                    <div class="icon-box"><i class="fa-solid fa-circle-nodes"></i></div>
+                    <h3>Chapter 5</h3>
+                    <p>圖 (Graphs)</p>
+                    <span class="badge">隨機 10 題</span>
+                </div>
+                <div class="chapter-card final-review" onclick="startQuiz('final')">
+                    <div class="icon-box"><i class="fa-solid fa-crown"></i></div>
+                    <h3>期末總複習</h3>
+                    <p>全範圍綜合測驗</p>
+                    <span class="badge highlight">挑戰 10 題</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="quiz-screen" class="screen">
+            <div class="quiz-top-bar">
+                <span id="quiz-title">Chapter 1 測驗</span>
+                <div class="timer"><i class="fa-regular fa-clock"></i> <span id="timer">00:00</span></div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-text">Question <span id="current-q">1</span> / 10</div>
+                <div class="progress-bar"><div id="progress-fill"></div></div>
+            </div>
+
+            <div class="question-card">
+                <h2 id="question-text">題目載入中...</h2>
+                <div class="options-container" id="options-box">
+                    </div>
+            </div>
+        </div>
+
+        <div id="result-screen" class="screen">
+            <div class="result-box">
+                <div class="score-chart">
+                    <span id="final-score">100</span>
+                    <small>分</small>
+                </div>
+                <h2 id="result-msg">完美！</h2>
+                <p>本次測驗共 10 題</p>
+                
+                <div class="stats-row">
+                    <div class="stat green">
+                        <i class="fa-solid fa-check-circle"></i>
+                        <span id="correct-num">10</span> 答對
+                    </div>
+                    <div class="stat red">
+                        <i class="fa-solid fa-times-circle"></i>
+                        <span id="wrong-num">0</span> 答錯
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn secondary" onclick="goHome()">返回選單</button>
+                    <button class="btn primary" onclick="retryQuiz()">再測一次 (重新抽題)</button>
+                </div>
+                <div class="divider" style="margin: 30px 0; border-top: 1px solid #eee;"></div>
+                <h3 style="text-align: left; color: #555; margin-bottom: 20px;">答題詳解與檢討</h3>
+                <div id="review-container">
+                    </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="quiz.js"></script>
+</body>
+</html>

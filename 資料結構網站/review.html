@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>複習中心 | Review Center</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="review.css">
+    <link rel="stylesheet" href="style.css"> 
+</head>
+<body class="review-body">
+
+    <div class="review-app-container">
+        
+        <header class="review-header-nav">
+            <div class="brand">
+                <i class="fa-solid fa-book-bookmark"></i> 個人複習中心
+            </div>
+            <div class="nav-links">
+                <a href="quiz.html" class="nav-link"><i class="fa-solid fa-pen-to-square"></i> 去測驗</a>
+                <a href="index.html" class="back-link"><i class="fa-solid fa-house"></i> 回教學首頁</a>
+            </div>
+        </header>
+
+        <main class="review-main-area">
+            
+            <div class="review-tabs">
+                <button class="tab-btn active" onclick="switchTab('fav')">
+                    <i class="fa-solid fa-star"></i> 重點收藏
+                </button>
+                <button class="tab-btn" onclick="switchTab('wrong')">
+                    <i class="fa-solid fa-xmark"></i> 錯題本
+                </button>
+            </div>
+
+            <div id="tab-fav" class="review-content active">
+                <div class="info-bar">
+                    <p>來自課程中標記星星的內容。</p>
+                </div>
+                <div id="bookmark-list" class="review-list">
+                    </div>
+            </div>
+
+            <div id="tab-wrong" class="review-content">
+                <div class="action-bar">
+                    <p>來自測驗中答錯的題目。</p>
+                    <button class="clear-btn" onclick="clearWrongAnswers()">
+                        <i class="fa-solid fa-trash"></i> 清空錯題
+                    </button>
+                </div>
+                <div id="wrong-list" class="review-list">
+                    </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="review.js"></script>
+</body>
+</html>

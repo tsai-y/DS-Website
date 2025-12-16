@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資料結構教學網 | Data Structures</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="mobile-menu-btn" class="mobile-menu-toggle">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="brand">
+                <i class="fa-solid fa-code"></i> 資料結構學習網
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-target="ch1">
+                    <i class="fa-solid fa-book-open"></i> CH1: 演算法 & 指標
+                </a>
+                <a href="#" class="nav-item" data-target="ch2">
+                    <i class="fa-solid fa-layer-group"></i> CH2: 陣列 (Arrays)
+                </a>
+                <a href="#" class="nav-item" data-target="ch3">
+                    <i class="fa-solid fa-bars-staggered"></i> CH3: 堆疊/佇列/鏈結
+                </a>
+                <a href="#" class="nav-item" data-target="ch4">
+                    <i class="fa-solid fa-tree"></i> CH4: 樹 (Trees)
+                </a>
+                <a href="#" class="nav-item" data-target="ch5">
+                    <i class="fa-solid fa-circle-nodes"></i> CH5: 圖 (Graphs)
+                </a>
+                <a href="quiz.html" class="nav-item">
+                    <i class="fa-solid fa-clipboard-check"></i> 綜合測驗中心
+                </a>
+                <a href="review.html" class="nav-item">
+                    <i class="fa-solid fa-book-bookmark"></i> 複習中心
+                </a>
+            </nav>
+        </aside>
+
+        <main class="content-area">
+            
+           <article id="ch1" class="chapter active">
+                <header class="content-header">
+                    <div class="breadcrumbs">首頁 > 第一章 > 基礎觀念</div>
+                    <div class="header-title-row">
+                        <h1>第一章：演算法分析與指標基礎</h1>
+                    </div>
+                </header>
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>1.1 什麼是演算法？</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    <div class="definition-box">
+                        <strong>核心定義：</strong> 解決特定問題的執行步驟與方法 [cite: 5-7]。
+                    </div>
+                    <p>例如：判斷班上是否有同星座的同學，或計算兩個 \(n \times n\) 矩陣的乘積 。</p>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>1.2 語言特性：Python vs. C</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    <p>在資料結構中，我們為什麼要學 C 語言的指標？因為它能直接操作記憶體。以下是筆記中關於資料型態的重點整理：</p>
+
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>特性</th>
+                                <th>一般變數 (如 Python/C int)</th>
+                                <th>指標變數 (C Pointer)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>定義</strong></td>
+                                <td>獨立、完整的資料型態 (如整數 59) </td>
+                                <td>不完整的型態，必須指向特定類型 (如 <code>int*</code>) </td>
+                            </tr>
+                            <tr>
+                                <td><strong>記憶體意義</strong></td>
+                                <td>告訴編譯器需要多少空間 (如 4 bytes) </td>
+                                <td>告訴編譯器這是一個「地址」，去哪裡找資料</td>
+                            </tr>
+                            <tr>
+                                <td><strong>合法操作</strong></td>
+                                <td>加減乘除運算 </td>
+                                <td>取址 (<code>&</code>)、取值 (<code>*</code>)、移動 (<code>++</code>) </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>1.3 指標入門 (Pointers 101)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    <p>指標是 C 語言的靈魂。讓我們用「房子」來比喻 ：</p>
+                    <div class="concept-card-container">
+                        <div class="concept-card">
+                            <div class="icon">🏠</div>
+                            <h3>變數 (Variable)</h3>
+                            <p>一棟房子</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="icon">👤</div>
+                            <h3>數值 (Value)</h3>
+                            <p>住在房子裡的人 (例如 59)</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="icon">📍</div>
+                            <h3>位址 (Address)</h3>
+                            <p>房子的門牌號碼 (例如 0x7ff...)</p>
+                        </div>
+                    </div>
+
+                    <h3>指標的 4 種行為 </h3>
+                    <ul class="terminology-list">
+                        <li><strong>宣告 (Declaration)</strong>: <code>int *p;</code> (宣告一本地址簿)</li>
+                        <li><strong>取址 (Address-of)</strong>: <code>&a</code> (查詢 a 的門牌號碼) [cite: 184]</li>
+                        <li><strong>取值 (Dereference)</strong>: <code>*p</code> (按址尋人，取出屋內的人) [cite: 216-217]</li>
+                        <li><strong>運算 (Arithmetic)</strong>: <code>p++</code> (移動到下一戶)</li>
+                    </ul>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>1.4 雙重指標：Table of Table</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    <p>如果指標是「地址紀錄表」，那雙重指標就是「紀錄地址紀錄表的紀錄表」。</p>
+                    
+                    <div class="code-window">
+                        <div class="code-header"><span class="lang">C Code </span></div>
+<pre><code>int final_grades = 59;                  // 1. 原始成績
+int *grades_table = &final_grades;      // 2. 指標 (指向成績)
+int **table_of_table = &grades_table;   // 3. 雙重指標 (指向指標)</code></pre>
+                    </div>
+
+                    <h3>記憶體映射圖解 </h3>
+                    <div class="visual-box" style="font-family: monospace; text-align: left; padding-left: 20px;">
+                        [table_of_table] ➜ [grades_table] ➜ [final_grades] = 59<br><br>
+                        <strong>關係解析：</strong><br>
+                        1. <code>table_of_table</code> 的值 = <code>grades_table</code> 的地址<br>
+                        2. <code>*table_of_table</code> (一層解碼) = <code>grades_table</code> 的值 = <code>final_grades</code> 的地址<br>
+                        3. <code>**table_of_table</code> (兩層解碼) = <code>final_grades</code> 的值 = 59
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>1.5 函式呼叫比較：修改數值 (Modify Value)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    <p>為什麼在函式裡改了變數，外面卻沒變？這是「傳值」與「傳址」的差異。</p>
+
+                    <h3>情境 A：傳值 (Call by Value) - 修改失敗 </h3>
+                    <div class="code-window">
+<pre><code>void try_to_pass(int grade) {
+    grade = 60; // 這裡改的是複製出來的 grade
+}
+// main 中呼叫 try_to_pass(final_grades);
+// 結果：final_grades 還是 59</code></pre>
+                    </div>
+
+                    <h3>情境 B：傳址 (Call by Address) - 修改成功 </h3>
+                    <div class="code-window">
+<pre><code>void pass_correctly(int *grade_ptr) {
+    *grade_ptr = 60; // 透過地址，直接修改原本房間裡的內容
+}
+// main 中呼叫 pass_correctly(&final_grades);
+// 結果：final_grades 變成 60</code></pre>
+                    </div>
+
+                    <h3>修改前後對照表 (Trace Table) </h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>階段</th>
+                                <th>變數名稱</th>
+                                <th>數值 (Value)</th>
+                                <th>位址 (Address)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background-color: #ffebee;">
+                                <td><strong>呼叫前 (Before)</strong></td>
+                                <td>num</td>
+                                <td>10</td>
+                                <td>a1 (假設)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>呼叫中 (In Function)</strong></td>
+                                <td>p (指標參數)</td>
+                                <td>a1</td>
+                                <td>b1 (指標自己的地址)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>執行 *p = 100</strong></td>
+                                <td>前往 a1 修改值</td>
+                                <td>10 ➜ 100</td>
+                                <td>a1</td>
+                            </tr>
+                            <tr style="background-color: #e8f5e9;">
+                                <td><strong>呼叫後 (After)</strong></td>
+                                <td>num</td>
+                                <td><strong>100</strong></td>
+                                <td>a1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="quiz-section">
+                    <div class="quiz-header">
+                        <h2><i class="fa-solid fa-pen-to-square"></i> 隨堂小測驗</h2>
+                    </div>
+                    
+                    <div class="quiz-item">
+                        <p class="question">Q1: 若 <code>int a = 10; int *p = &a;</code>，請問 <code>*p</code> 的值是多少？</p>
+                        <details class="answer-reveal">
+                            <summary>查看答案</summary>
+                            <div class="answer-content">
+                                <strong>10</strong><br>解釋：<code>*p</code> 代表取出 p 所指地址內的數值。
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="quiz-item">
+                        <p class="question">Q2: 如果要寫一個函式交換兩個整數的值 (Swap)，參數應該宣告為？</p>
+                        <details class="answer-reveal">
+                            <summary>查看答案</summary>
+                            <div class="answer-content">
+                                <strong>指標 (int *a, int *b)</strong><br>解釋：必須透過傳址 (Pass by Address) 才能修改到呼叫端的原始變數。
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+
+            <article id="ch2" class="chapter hidden">
+                <header class="content-header">
+                    <div class="breadcrumbs">首頁 > 第二章 > 陣列與記憶體</div>
+                    <div class="header-title-row">
+                        <h1>第二章：陣列 (Arrays)</h1>
+                    </div>
+                </header>
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>2.1 一維陣列 (1D Arrays)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    <p>陣列是連續的記憶體空間。在 C 語言中，當你宣告 <code>int A[5]</code>，電腦會給你 5 個連續的整數空間。存取速度極快，時間複雜度為 <strong>\(O(1)\)</strong>。</p>
+                    
+                    <div class="definition-box">
+                        [cite_start]<strong>核心公式：1D 陣列位址計算 </strong><br>
+                        假設起始位址為 \(\alpha\)，每個元素大小為 \(d\)，起始索引為 \(s\)。<br>
+                        元素 \(A[i]\) 的位址為：
+                        \[ \text{Address}(A[i]) = \alpha + (i - s) \times d \]
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>2.2 二維陣列 (2D Arrays)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    <p>記憶體是線性的，但二維陣列是平面的。我們要怎麼把表格塞進線性的記憶體裡？這就有兩種排法：</p>
+
+                    <div class="concept-card-container">
+                        <div class="concept-card">
+                            <div class="icon">➡️</div>
+                            <h3>以列為主 (Row Major)</h3>
+                            <p>先排第一列，再排第二列... <br>(C/C++ 預設)</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="icon">⬇️</div>
+                            <h3>以行為主 (Column Major)</h3>
+                            <p>先排第一行，再排第二行... <br>(Fortran 預設)</p>
+                        </div>
+                    </div>
+
+                    <div class="example-block">
+                        [cite_start]<h4>計算公式與範例 </h4>
+                        <p>假設陣列 \( A[s_1 : u_1, s_2 : u_2] \)，總行數 \( n = u_2 - s_2 + 1 \)，總列數 \( m = u_1 - s_1 + 1 \)。</p>
+                        
+                        <p><strong>1. 以列為主 (Row Major)：</strong></p>
+                        <p>\[ \text{Addr}(A[i][j]) = \alpha + [(i - s_1) \times n + (j - s_2)] \times d \]</p>
+                        
+                        <p><strong>2. 以行為主 (Column Major)：</strong></p>
+                        <p>\[ \text{Addr}(A[i][j]) = \alpha + [(j - s_2) \times m + (i - s_1)] \times d \]</p>
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>2.3 三維陣列 (3D Arrays)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    <p>三維陣列 \( A[u_1][u_2][u_3] \) 就像一本書（頁、行、列）。位址計算是二維的延伸。</p>
+                    
+                    <div class="definition-box">
+                        [cite_start]<strong>變數定義 ：</strong>
+                        <ul>
+                            <li>\( u_1, u_2, u_3 \): 各維度的上限 (Upper Bound)</li>
+                            <li>\( s_1, s_2, s_3 \): 各維度的起始索引 (Start Index)</li>
+                            <li>\( p, q, r \): 各維度的元素個數 (\( p=u_1-s_1+1 \), \( q=u_2-s_2+1 \), \( r=u_3-s_3+1 \))</li>
+                        </ul>
+                    </div>
+
+                    <h3>1. 以列為主 (Row Major)</h3>
+                    <div class="visual-box">
+                        \[ \text{Addr}(A[i][j][k]) = \alpha + [(i-s_1)qr + (j-s_2)r + (k-s_3)] \cdot d \]
+                    </div>
+
+                    <h3>2. 以行為主 (Column Major)</h3>
+                    <div class="visual-box">
+                        \[ \text{Addr}(A[i][j][k]) = \alpha + [(k-s_3)pq + (j-s_2)p + (i-s_1)] \cdot d \]
+                    </div>
+
+                    <div class="example-block">
+                        [cite_start]<h4>📝 考題實戰 [cite: 1323-1326]</h4>
+                        <p><strong>題目：</strong> \( A[-3:5, -4:2, 1:5] \)，\(\alpha=100\)，\(d=1\)，求 <strong>Row Major</strong> 下 \( A[1,1,3] \) 的位址？</p>
+                        <p><strong>解析：</strong></p>
+                        <ul>
+                            <li>維度大小：\( p=9 \) (列), \( q=7 \) (行), \( r=5 \) (頁)</li>
+                            <li>公式帶入：\( 100 + [(1 - (-3)) \cdot 7 \cdot 5 + (1 - (-4)) \cdot 5 + (3 - 1)] \cdot 1 \)</li>
+                            <li>計算：\( 100 + [4 \cdot 35 + 5 \cdot 5 + 2] = 100 + 140 + 25 + 2 = \mathbf{267} \)</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>2.4 N 維陣列 (N-Dimensional Arrays)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    [cite_start]<p>推廣到 \( n \) 維陣列，以列為主 (Row Major) 的通式如下 ：</p>
+                    
+                    <div class="definition-box">
+                        <strong>N 維 Row Major 公式：</strong><br>
+                        \[ \text{Addr}(A[i_1, i_2, ..., i_n]) = \alpha + \sum_{k=1}^{n} \left( (i_k - s_k) \cdot \prod_{m=k+1}^{n} \text{size}_m \right) \cdot d \]
+                    </div>
+                    <p>簡單記法：算第 \( k \) 維的偏移量時，要乘上「它後面所有維度大小的乘積」。</p>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>2.5 特殊矩陣：三角形矩陣 (Triangular Matrix)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    <p>矩陣中若有大量元素為 0，直接用二維陣列儲存會浪費空間。我們可以將其壓縮至一維陣列 \( B[k] \)。</p>
+
+                    <div class="concept-card-container">
+                        <div class="concept-card">
+                            <div class="icon">📐</div>
+                            <h3>下三角形 (Lower)</h3>
+                            <p>\( i < j \) 時為 0。<br>資料集中在左下角。</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="icon">🔻</div>
+                            <h3>上三角形 (Upper)</h3>
+                            <p>\( i > j \) 時為 0。<br>資料集中在右上角。</p>
+                        </div>
+                    </div>
+
+                    [cite_start]<h3>壓縮公式 </h3>
+                    <p>假設矩陣大小 \( n \times n \)，以<strong>列為主</strong>儲存到一維陣列 \( B \) (索引從 1 開始)：</p>
+                    
+                    <div class="code-window">
+                        <div class="code-header"><span class="lang">下三角形 (Lower Triangular)</span></div>
+                        <div style="padding: 15px; color: #fff;">
+                            對於 \( A[i][j] \) (其中 \( i \ge j \))：<br><br>
+                            \[ k = \frac{i(i-1)}{2} + j \]
+                        </div>
+                    </div>
+                    
+                    <div class="example-block">
+                        <strong>原理：</strong> 前 \( i-1 \) 列的元素總數是一個等差級數 \( 1+2+...+(i-1) = \frac{i(i-1)}{2} \)，再加上第 \( i \) 列的第 \( j \) 個位置。
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="quiz-section">
+                    <div class="quiz-header">
+                        <h2><i class="fa-solid fa-pen-to-square"></i> 隨堂小測驗</h2>
+                    </div>
+                    
+                    <div class="quiz-item">
+                        <p class="question">Q1: 陣列 A[1:10] 起始位址 200，每個整數 4 bytes，求 A[5] 位址？</p>
+                        <details class="answer-reveal">
+                            <summary>點擊查看答案</summary>
+                            <div class="answer-content">
+                                <strong>答案：216</strong>
+                                <p>\( 200 + (5 - 1) \times 4 = 200 + 16 = 216 \)</p>
+                            </div>
+                        </details>
+                    </div>
+
+                    <div class="quiz-item">
+                        <p class="question">Q2: 三維陣列中，若固定 i 和 j，改變 k 的值，記憶體位址只差一個 d，這是哪種排列？</p>
+                        <details class="answer-reveal">
+                            <summary>點擊查看答案</summary>
+                            <div class="answer-content">
+                                <strong>答案：以列為主 (Row Major)</strong>
+                                <p>在 Row Major 公式中，k 是最後一個維度，係數為 1 (或 d)，代表連續儲存。</p>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+
+            <article id="ch3" class="chapter hidden">
+                <header class="content-header">
+                    <div class="breadcrumbs">首頁 > 第三章 > 線性資料結構</div>
+                    <div class="header-title-row">
+                        <h1>第三章：鏈結串列、堆疊與佇列</h1>
+                    </div>
+                </header>
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>3.1 鏈結串列 (Linked List) 基礎</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    [cite_start]<p>鏈結串列由非連續記憶體的<strong>節點 (Node)</strong> 組成。適合頻繁的插入與刪除。每個節點包含資料與指向下一個節點的指標 。</p>
+                    
+                    <div class="visual-box">
+                        <div class="linked-list-viz">
+                            HEAD ➜ [Data | Next] ➜ [Data | Next] ➜ NULL
+                        </div>
+                    </div>
+
+                    <div class="code-window">
+                        <div class="code-header"><span class="lang">C Language Struct</span></div>
+<pre><code>struct node {
+    int data;
+    struct node *next;
+};</code></pre>
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>3.2 鏈結串列的操作 (Insertion & Deletion)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+
+                    <h3>1. 插入節點 (Insert)</h3>
+                    
+                    <h4>(1) 插入到最前端 (Insert at Front)</h4>
+                    <p>邏輯：新節點指向原本的 Head，Head 更新為新節點。</p>
+                    <div class="code-window">
+<pre><code>x->next = head;
+head = x;</code></pre>
+                    </div>
+
+                    <h4>(2) 插入到中間 (Insert After Node)</h4>
+                    <p>邏輯：新節點 <code>x</code> 插入在 <code>prev</code> 之後。先接後面，再接前面。</p>
+                    <div class="code-window">
+<pre><code>x->next = prev->next;
+prev->next = x;</code></pre>
+                    </div>
+
+                    [cite_start]<h4>(3) 插入到最尾端 (Insert at Tail) </h4>
+                    <p><strong>痛點：</strong> 單向串列不知道尾巴在哪，必須從頭 <code>Head</code> 一路走到最後 (<code>current->next == NULL</code>)。</p>
+                    <div class="code-window">
+<pre><code>if (head == NULL) {
+    head = x;
+} else {
+    struct node *curr = head;
+    while (curr->next != NULL) { // 走到最後一個節點
+        curr = curr->next;
+    }
+    curr->next = x; // 接上去
+}</code></pre>
+                    </div>
+
+                    <h3>2. 刪除節點 (Delete)</h3>
+
+                    <h4>(1) 刪除第一個節點 (Delete Front)</h4>
+                    <div class="code-window">
+<pre><code>struct node *temp = head;
+head = head->next;
+free(temp);</code></pre>
+                    </div>
+
+                    [cite_start]<h4>(2) 刪除最尾端節點 (Delete Tail) </h4>
+                    <p><strong>注意：</strong> 不能只找到最後一個節點，必須停在<strong>倒數第二個</strong>節點，才能把它的 <code>next</code> 設為 NULL。</p>
+                    <div class="code-window">
+<pre><code>struct node *prev = head;
+// 停在倒數第二個 (prev->next 是最後一個)
+while (prev->next->next != NULL) {
+    prev = prev->next;
+}
+free(prev->next); // 釋放最後一個
+prev->next = NULL; // 斷開連結</code></pre>
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>3.3 進階操作：反轉與雙向串列</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+
+                    <h3>1. [cite_start]單向串列反轉 (Invert/Reverse) </h3>
+                    <p>口訣：<strong>三個指標滑動法</strong> (prev, current, p)。一步步將箭頭轉向。</p>
+                    <div class="visual-box" style="text-align: left; padding-left: 20px; font-family: monospace;">
+                        初始： [NULL]   [A] ➜ [B] ➜ [C] ➜ NULL<br>
+                               ^prev    ^curr<br><br>
+                        轉向： [NULL] 🤛 [A]   [B] ➜ [C] ➜ NULL<br>
+                                        ^prev ^curr
+                    </div>
+                    <div class="code-window">
+<pre><code>void invert(struct node **head) {
+    struct node *p = *head, *curr = NULL, *prev = NULL;
+    while (p != NULL) {
+        prev = curr;
+        curr = p;
+        p = p->next;      // p 先去探路
+        curr->next = prev; // curr 轉向
+    }
+    *head = curr;
+}</code></pre>
+                    </div>
+
+                    <h3>2. 雙向鏈結串列 (Doubly Linked List)</h3>
+                    [cite_start]<p>每個節點有 <code>llink</code> (左) 與 <code>rlink</code> (右)。插入節點時需要調整 <strong>4 條連結</strong> 。</p>
+                    <div class="code-window">
+<pre><code>// 在 current 後插入 x
+x->rlink = current->rlink; // 1. x 右手接人
+x->llink = current;        // 2. x 左手接人
+if (current->rlink) current->rlink->llink = x; // 3. 後面的人回頭接 x
+current->rlink = x;        // 4. 前面的人接 x</code></pre>
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>3.4 堆疊 (Stack)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    <div class="definition-box">
+                        <strong>核心特性：LIFO (後進先出)</strong><br>
+                        操作：Push (推入), Pop (彈出)。
+                    </div>
+
+                    <div class="visual-box" style="display: flex; justify-content: center; gap: 40px; align-items: flex-end;">
+                        <div style="text-align: center;">
+                            <div style="margin-bottom: 5px; font-weight: bold; color: var(--primary-color);">Top 指標 ➜</div>
+                            <div class="stack-container">
+                                <div class="stack-item new">30 (Push)</div>
+                                <div class="stack-item">20</div>
+                                <div class="stack-item">10</div>
+                            </div>
+                            <p>Push(30)</p>
+                        </div>
+                    </div>
+
+                    [cite_start]<h3>Linked List 實作 Stack Push </h3>
+                    <p>在鏈結串列中，Push 等同於「Insert at Front」。</p>
+                    <div class="code-window">
+<pre><code>bool Push(struct node **top, int data) {
+    struct node *newNode = (struct node*)malloc(sizeof(struct node));
+    if (!newNode) return true; // 記憶體滿
+    
+    newNode->data = data;
+    newNode->next = *top; // 新節點指向舊 Top
+    *top = newNode;       // 更新 Top
+    return false;
+}</code></pre>
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>3.5 佇列 (Queue) 與環狀陣列</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    <div class="definition-box">
+                        <strong>核心特性：FIFO (先進先出)</strong><br>
+                        操作：Enqueue (入列 - Rear), Dequeue (出列 - Front)。
+                    </div>
+
+                    <h3>環狀佇列 (Circular Queue) 視覺化</h3>
+                    <p>利用餘數運算，讓 Rear 到底後能回到開頭，解決陣列空間浪費問題。</p>
+                    
+                    <div class="visual-box">
+                        <div class="circular-queue-container">
+                            <div class="circle-part top">0 (Front)</div>
+                            <div class="circle-part right">1 (Data)</div>
+                            <div class="circle-part bottom-right">2 (Data)</div>
+                            <div class="circle-part bottom-left">3 (Rear)</div>
+                            <div class="circle-part left" style="opacity: 0.3;">4 (空)</div>
+                            <div class="center-text">Queue</div>
+                        </div>
+                        <p style="text-align: center; margin-top: 10px; color: #666;">
+                            Front=0, Rear=3 (有3筆資料)<br>
+                            犧牲一個空間(4)以區分空/滿
+                        </p>
+                    </div>
+
+                    <div class="example-block">
+                        [cite_start]<h4>關鍵演算法 ：</h4>
+                        <ul>
+                            <li><strong>Enqueue</strong>: <code>rear = (rear + 1) % MaxSize;</code></li>
+                            <li><strong>Dequeue</strong>: <code>front = (front + 1) % MaxSize;</code></li>
+                            <li><strong>滿 (Full)</strong>: <code>(rear + 1) % MaxSize == front</code></li>
+                            <li><strong>空 (Empty)</strong>: <code>front == rear</code></li>
+                        </ul>
+                    </div>
+
+                    <div class="code-window">
+<pre><code>void enqueue(struct cqueue *q, int item) {
+    // 檢查是否已滿 (Rear 的下一步撞到 Front)
+    if ((q->rear + 1) % MaxSize == q->front) {
+        printf("Queue已滿\n");
+        return;
+    }
+    q->rear = (q->rear + 1) % MaxSize; // 環狀移動
+    q->items[q->rear] = item;
+}</code></pre>
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>3.6 運算式 (Expressions)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    <p>Stack 的經典應用：編譯器解析數學公式。</p>
+                    
+                    <div class="concept-card-container">
+                        <div class="concept-card"><h3>中序 (Infix)</h3><p>A + B</p></div>
+                        <div class="concept-card"><h3>後序 (Postfix)</h3><p>A B +</p></div>
+                        <div class="concept-card"><h3>前序 (Prefix)</h3><p>+ A B</p></div>
+                    </div>
+
+                    <div class="example-block">
+                        [cite_start]<h4>中序轉後序範例 ：</h4>
+                        <p>題目：<code>A + B * C</code></p>
+                        <ol>
+                            <li>依優先權加括號：<code>(A + (B * C))</code></li>
+                            <li>運算子移到右括號外：<code>(A (B C *) +)</code></li>
+                            <li>去括號：<code>A B C * +</code></li>
+                        </ol>
+                    </div>
+                </section>
+
+                <section class="quiz-section">
+                    <div class="quiz-header"><h2>隨堂小測驗</h2></div>
+                    <div class="quiz-item">
+                        <p class="question">Q1: 在單向 Linked List 中刪除「最後一個節點」的時間複雜度是？</p>
+                        <details class="answer-reveal">
+                            <summary>查看答案</summary>
+                            <div class="answer-content"><strong>O(n)</strong><br>因為必須從頭走訪到倒數第二個節點。</div>
+                        </details>
+                    </div>
+                    <div class="quiz-item">
+                        <p class="question">Q2: 環狀佇列中，若 front=3, rear=3，代表什麼狀態？</p>
+                        <details class="answer-reveal">
+                            <summary>查看答案</summary>
+                            <div class="answer-content"><strong>空 (Empty)</strong><br>當 front == rear 時，佇列為空。</div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+
+            <article id="ch4" class="chapter hidden">
+                <header class="content-header">
+                    <div class="breadcrumbs">首頁 > 第四章 > 非線性結構</div>
+                    <div class="header-title-row">
+                        <h1>第四章：樹 (Trees) 與二元樹</h1>
+                    </div>
+                </header>
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>4.1 樹的基本定義與術語</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    
+                    <p>樹 (Tree) 是一種非線性的資料結構，由一個以上的節點 (Node) 組成的有限集合。它具有階層關係，就像族譜或公司組織圖。</p>
+
+                    <div class="definition-box">
+                        [cite_start]<strong>核心定義 ：</strong>
+                        <ul>
+                            <li>有一個特定的節點稱為 <strong>Root (樹根)</strong>。</li>
+                            <li>其餘節點可分為 \( n \ge 0 \) 個互斥的集合 \( T_1, T_2, ..., T_n \)，每個集合本身也是一棵樹，稱為 <strong>Subtree (子樹)</strong>。</li>
+                        </ul>
+                    </div>
+
+                    <h3>家族關係與術語圖解</h3>
+                    <p>我們用這張圖來理解所有術語：</p>
+                    
+                    <div class="visual-box" style="padding: 20px 0;">
+                        <div class="tree-structure">
+                            <div class="tree-level">
+                                <span class="level-label" style="color:red;">Level 1 (Root)</span>
+                                <div class="node-group">
+                                    <div class="tree-node root">A</div>
+                                </div>
+                            </div>
+                            <div class="tree-connector">
+                                <div class="line-vertical"></div>
+                                <div class="line-horizontal"></div>
+                            </div>
+                            <div class="tree-level">
+                                <span class="level-label" style="color:orange;">Level 2</span>
+                                <div class="node-group">
+                                    <div class="tree-node">B</div>
+                                    <div class="tree-node">C</div>
+                                    <div class="tree-node">D</div>
+                                </div>
+                            </div>
+                            <div class="tree-connector">
+                                <div class="line-vertical"></div>
+                            </div>
+                            <div class="tree-level">
+                                <span class="level-label" style="color:green;">Level 3</span>
+                                <div class="node-group">
+                                    <div class="tree-node leaf">E</div>
+                                    <div class="tree-node leaf">F</div>
+                                    <div class="tree-node leaf">G</div>
+                                    <div class="tree-node leaf">H</div>
+                                </div>
+                            </div>
+                            <div class="tree-level">
+                                <span class="level-label" style="color:blue;">Level 4 (Height)</span>
+                                <div class="node-group">
+                                    <div class="tree-node leaf" style="margin-left: 100px;">I</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="concept-card-container">
+                        <div class="concept-card">
+                            <div class="icon">👨‍👦</div>
+                            <h3>直系關係</h3>
+                            <p><strong>Parent (父)</strong>: A 是 B 的父親。<br>
+                            <strong>Child (子)</strong>: B, C, D 是 A 的孩子。<br>
+                            <strong>Ancestor (祖先)</strong>: 從根到該節點路徑上的所有節點 (如 A 是 E 的祖先)。<br>
+                            <strong>Descendant (子孫)</strong>: 該節點子樹中的所有節點。</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="icon">🤝</div>
+                            <h3>旁系關係</h3>
+                            <p><strong>Sibling (兄弟)</strong>: 擁有「相同父節點」的節點。<br>例如：B, C, D 互為兄弟；E, F 互為兄弟。<br><span style="color:red; font-size:0.9em;">(注意: E 和 G 不是兄弟，因為父節點不同)</span></p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="icon">🏷️</div>
+                            <h3>節點屬性</h3>
+                            <p><strong>Degree (分支度)</strong>: 子節點數量 (A=3, B=2)。<br>
+                            <strong>Level (階度)</strong>: 根為 1，往下 +1。<br>
+                            <strong>Height (高度)</strong>: 最大階度 (此圖為 4)。</p>
+                        </div>
+                    </div>
+                    
+                    <h3>其他術語 (較少見但重要)</h3>
+                    <ul class="terminology-list">
+                        <li><strong>非終點節點 (Non-terminal Node)</strong>: 有子節點的節點 (亦稱 Internal Node)。例如 A, B, D。</li>
+                        <li><strong>樹葉 / 終點節點 (Leaf / Terminal Node)</strong>: 沒有子節點的節點 (Degree = 0)。例如 E, F, G, H, I。</li>
+                        <li><strong>樹林 (Forest)</strong>: 由 \( n \ge 0 \) 個互斥的樹所組成的集合。簡單說，把 Root 拿掉，剩下的子樹們就變成森林了。</li>
+                    </ul>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>4.2 二元樹 (Binary Tree)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+
+                    <p>二元樹是樹的一種特例，它限制每個節點<strong>最多只能有兩個子節點</strong> (Degree \(\le\) 2)。</p>
+
+                    <div class="definition-box">
+                        <strong>重要特性：</strong><br>
+                        在二元樹中，<strong>左子樹 (Left Subtree)</strong> 與 <strong>右子樹 (Right Subtree)</strong> 是有嚴格順序之分的。即使內容相同，如果左右位置不同，視為不同的二元樹。
+                        <br>
+                        <span style="color:red;">圖示： A->Left(B) \(\neq\) A->Right(B)</span>
+                    </div>
+
+                    [cite_start]<h3>特殊二元樹種類 </h3>
+                    <table class="comparison-table">
+                        <tr>
+                            <th width="25%">種類</th>
+                            <th>定義</th>
+                            <th>特性</th>
+                        </tr>
+                        <tr>
+                            <td><strong>歪斜樹 (Skewed)</strong></td>
+                            <td>所有節點都只有左子樹 (左斜) 或只有右子樹 (右斜)。</td>
+                            <td>最壞情況，效率退化成 Linked List。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>滿枝二元樹 (Full Binary Tree)</strong></td>
+                            <td>高度為 \( k \)，且擁有 \( 2^k - 1 \) 個節點。</td>
+                            <td>每一層都塞滿了，完美的三角形。</td>
+                        </tr>
+                        <tr>
+                            <td><strong>完整二元樹 (Complete Binary Tree)</strong></td>
+                            <td>節點編號順序與滿枝二元樹完全一致。</td>
+                            <td>允許最後一層沒滿，但必須<strong>由左至右</strong>填滿。</td>
+                        </tr>
+                    </table>
+
+                    [cite_start]<h3>二元樹的數學性質 (考試必背) </h3>
+                    <div class="example-block">
+                        <ul>
+                            <li><strong>定理一：</strong> 第 \( i \) 層最多有 \( 2^{i-1} \) 個節點。</li>
+                            <li><strong>定理二：</strong> 高度為 \( k \) 的二元樹，最多有 \( 2^k - 1 \) 個節點。</li>
+                            <li><strong>定理三：</strong> 若 Leaf 節點數為 \( n_0 \)，Degree 為 2 的節點數為 \( n_2 \)，則 \( n_0 = n_2 + 1 \) (葉子永遠比度數為2的節點多一個)。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>4.3 二元樹的表示法 (Representation)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    <p>電腦怎麼存樹？主要有兩種方式：</p>
+
+                    <h3>1. 陣列表示法 (Array Representation)</h3>
+                    <p>適合<strong>完整二元樹</strong>。利用索引值計算親子關係 (假設 Root 索引為 1)。</p>
+                    <div class="visual-box">
+                        若節點索引為 \( i \)：<br>
+                        • 父節點：\( \lfloor i/2 \rfloor \)<br>
+                        • 左子節點：\( 2i \)<br>
+                        • 右子節點：\( 2i + 1 \)
+                    </div>
+                    <p><em>缺點：若是歪斜樹，會浪費大量陣列空間。</em></p>
+
+                    <h3>2. 鏈結串列表示法 (Linked List Representation)</h3>
+                    <p>最常用的方法。每個節點包含資料與左右指標。</p>
+                    <div class="code-window">
+                        <div class="code-header"><span class="lang">C Language Struct</span></div>
+<pre><code>struct node {
+    int data;           // 資料
+    struct node *left;  // 左子樹指標
+    struct node *right; // 右子樹指標
+};</code></pre>
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>4.4 二元樹的追蹤 (Traversal)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    <p>走訪樹中所有節點的順序。依照「根 (D)」被拜訪的時機來命名。</p>
+                    
+                    <div class="concept-card-container">
+                        <div class="concept-card">
+                            <h3>前序 (Preorder)</h3>
+                            <p><strong>D ➔ L ➔ R</strong></p>
+                            <p>先印樹根，再走左邊，最後右邊。</p>
+                        </div>
+                        <div class="concept-card">
+                            <h3>中序 (Inorder)</h3>
+                            <p><strong>L ➔ D ➔ R</strong></p>
+                            <p>先走左邊，印樹根，再走右邊。</p>
+                        </div>
+                        <div class="concept-card">
+                            <h3>後序 (Postorder)</h3>
+                            <p><strong>L ➔ R ➔ D</strong></p>
+                            <p>先走左邊，再走右邊，最後印樹根。</p>
+                        </div>
+                    </div>
+
+                    <div class="example-block">
+                        <h4>📝 實戰範例</h4>
+                        <p>假設有一棵樹：Root(A), Left(B), Right(C)</p>
+                        <ul>
+                            <li><strong>Preorder:</strong> A, B, C</li>
+                            <li><strong>Inorder:</strong> B, A, C (在二元搜尋樹中，這會印出排序好的資料)</li>
+                            <li><strong>Postorder:</strong> B, C, A (常用於刪除樹，先刪子節點再刪父節點)</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="quiz-section">
+                    <div class="quiz-header"><h2>隨堂小測驗</h2></div>
+                    <div class="quiz-item">
+                        <p class="question">Q1: 根據定理三，如果一棵二元樹有 10 個 Degree=2 的節點，請問它有幾個 Leaf 節點？</p>
+                        <details class="answer-reveal">
+                            <summary>查看答案</summary>
+                            <div class="answer-content"><strong>11 個</strong><br>解釋：公式 \( n_0 = n_2 + 1 \)。所以 \( 10 + 1 = 11 \)。</div>
+                        </details>
+                    </div>
+                    <div class="quiz-item">
+                        <p class="question">Q2: 在陣列表示法中，若節點索引為 5，其左子節點的索引是多少？</p>
+                        <details class="answer-reveal">
+                            <summary>查看答案</summary>
+                            <div class="answer-content"><strong>10</strong><br>解釋：左子節點索引為 \( 2 \times i \)，即 \( 2 \times 5 = 10 \)。</div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+
+            <article id="ch5" class="chapter hidden">
+                <header class="content-header">
+                    <div class="breadcrumbs">首頁 > 第五章 > 進階非線性結構</div>
+                    <div class="header-title-row">
+                        <h1>第五章：圖形結構 (Graph)</h1>
+                    </div>
+                </header>
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>5.1 圖的定義與術語</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    [cite_start]<p>圖 (Graph) 是由頂點 (Vertex) 與邊 (Edge) 所組成的集合，記為 \( G = (V, E) \)。它用來描述物件之間的「多對多」關係。</p>
+
+                    <div class="concept-card-container">
+                        <div class="concept-card">
+                            <div class="icon">🔴</div>
+                            <h3>頂點 (Vertex)</h3>
+                            <p>代表物件，例如：城市、車站。</p>
+                        </div>
+                        <div class="concept-card">
+                            <div class="icon">➖</div>
+                            <h3>邊 (Edge)</h3>
+                            <p>代表關係，例如：道路、航線。</p>
+                        </div>
+                    </div>
+
+                    [cite_start]<h3>圖的種類</h3>
+                    <ul>
+                        <li><strong>有向圖 (Directed Graph / Digraph)</strong>：邊有方向性 ( \( <A, B> \) )，A 指向 B。</li>
+                        <li><strong>無向圖 (Undirected Graph)</strong>：邊無方向性 ( \( (A, B) \) )，代表 A 與 B 互通。</li>
+                        <li><strong>加權圖 (Weighted Graph)</strong>：邊上面有數值 (如距離、成本)。</li>
+                    </ul>
+
+                    <div class="definition-box">
+                        <strong>度數 (Degree) 計算：</strong>
+                        <ul>
+                            <li><strong>無向圖</strong>：連接該點的邊數。</li>
+                            <li><strong>有向圖</strong>：分為 <strong>入度 (In-degree)</strong> (指向自己的邊) 與 <strong>出度 (Out-degree)</strong> (指出去的邊)。<br>總度數 = In-degree + Out-degree。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>5.2 圖的表示法 (Representation)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    [cite_start]<p>電腦記憶體是線性的，如何儲存複雜的圖形關係？主要有兩種方法 [cite: 1748-1756]。</p>
+
+                    <h3>1. 相鄰矩陣 (Adjacency Matrix)</h3>
+                    <p>使用二維陣列 <code>A[n][n]</code>。若頂點 \(i\) 與 \(j\) 有邊，則 <code>A[i][j] = 1</code> (或是權重值)，否則為 0。</p>
+                    <div class="visual-box" style="font-family: monospace;">
+                          1 2 3<br>
+                        1 0 1 1  (1連到2, 3)<br>
+                        2 1 0 0  (2連到1)<br>
+                        3 1 0 0  (3連到1)
+                    </div>
+                    <ul class="pros-cons">
+                        <li><span style="color:green">優點</span>：判斷兩點是否有邊只需 \( O(1) \)。</li>
+                        <li><span style="color:red">缺點</span>：空間複雜度 \( O(n^2) \)，稀疏圖 (邊很少) 時極度浪費空間。</li>
+                    </ul>
+
+                    <h3>2. 相鄰串列 (Adjacency List)</h3>
+                    [cite_start]<p>使用「陣列 + 鏈結串列」。陣列儲存每個頂點的 Head，鏈結串列串起所有鄰居 [cite: 1918-1919]。</p>
+                    <div class="visual-box" style="text-align: left; padding-left: 20px;">
+                        Vertex 1: -> [2] -> [3] -> NULL<br>
+                        Vertex 2: -> [1] -> NULL<br>
+                        Vertex 3: -> [1] -> NULL
+                    </div>
+                    <ul class="pros-cons">
+                        <li><span style="color:green">優點</span>：節省空間，空間複雜度 \( O(V+E) \)。</li>
+                        <li><span style="color:red">缺點</span>：判斷兩點是否有邊較慢，需走訪串列。</li>
+                    </ul>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>5.3 圖的搜尋 (Traversal)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    
+                    <table class="comparison-table">
+                        <tr>
+                            <th>方法</th>
+                            <th>深度優先搜尋 (DFS)</th>
+                            <th>廣度優先搜尋 (BFS)</th>
+                        </tr>
+                        <tr>
+                            <td><strong>策略</strong></td>
+                            <td>一條路走到黑，撞牆回頭 (Backtracking)</td>
+                            <td>地毯式搜索，先訪鄰居，再往外擴散</td>
+                        </tr>
+                        <tr>
+                            <td><strong>資料結構</strong></td>
+                            [cite_start]<td><strong>堆疊 (Stack)</strong> 或 遞迴 </td>
+                            [cite_start]<td><strong>佇列 (Queue)</strong></td>
+                        </tr>
+                        <tr>
+                            <td><strong>路徑特徵</strong></td>
+                            <td>路徑較深、較長</td>
+                            <td>找「最短路徑」的首選</td>
+                        </tr>
+                    </table>
+
+                    <div class="code-window">
+                        <div class="code-header"><span class="lang">DFS 虛擬碼概念</span></div>
+<pre><code>void DFS(Vertex v) {
+    visited[v] = true; // 標記已走訪
+    for (each neighbor w of v) {
+        if (!visited[w]) {
+            DFS(w); // 遞迴深入
+        }
+    }
+}</code></pre>
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>5.4 最小擴展樹 (Minimum Spanning Tree)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    [cite_start]<p>在一個加權連通圖中，選擇 \( n-1 \) 條邊將所有頂點連通，且邊的權重總和最小，這棵樹就是 MST。</p>
+
+                    <div class="concept-card-container">
+                        <div class="concept-card">
+                            <h3>Prim's Algorithm</h3>
+                            <p><strong>「以點為中心」</strong></p>
+                            <p>從一個起點開始，每次將「離目前樹最近」的頂點拉進來。適合稠密圖。</p>
+                        </div>
+                        <div class="concept-card">
+                            <h3>Kruskal's Algorithm</h3>
+                            <p><strong>「以邊為中心」</strong></p>
+                            [cite_start]<p>將所有邊按權重排序，從小到大選邊，只要不形成迴圈 (Cycle) 就加入。適合稀疏圖 。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="learning-section">
+                    <div class="section-title-row">
+                        <h2>5.5 拓樸排序 (Topological Sort)</h2>
+                        <button class="star-btn"><i class="fa-regular fa-star"></i></button>
+                    </div>
+                    [cite_start]<p>應用於 <strong>AOV Network (Activity On Vertex)</strong>，例如大學擋修機制：要先修微積分(A)，才能修工程數學(B)。這是一個有向無環圖 (DAG)。</p>
+
+                    <div class="example-block">
+                        <h4>演算步驟：</h4>
+                        <ol>
+                            <li>找出一個 <strong>入度 (In-degree) 為 0</strong> 的頂點 (沒有前置條件的課程)。</li>
+                            <li>輸出該頂點，並將其從圖中移除 (同時移除指出去的邊)。</li>
+                            <li>重複上述步驟，直到所有頂點都輸出，或找不到入度為 0 的點 (代表有迴圈)。</li>
+                        </ol>
+                    </div>
+                    
+                    <div class="visual-box">
+                        <strong>範例：</strong> A -> B, A -> C, B -> D<br>
+                        1. A 入度0 ➜ 輸出 A<br>
+                        2. 移除 A，剩 B, C (入度皆變0) ➜ 輸出 B (或 C)<br>
+                        3. 移除 B，剩 C, D ➜ 輸出 C (或 D)<br>
+                        <strong>結果：</strong> A -> B -> C -> D
+                    </div>
+                </section>
+
+                <hr class="divider">
+
+                <section class="quiz-section">
+                    <div class="quiz-header"><h2>隨堂小測驗</h2></div>
+                    <div class="quiz-item">
+                        <p class="question">Q1: 一個有 \( n \) 個頂點的圖，其相鄰矩陣的大小是多少？</p>
+                        <details class="answer-reveal">
+                            <summary>查看答案</summary>
+                            <div class="answer-content"><strong>\( n \times n \)</strong><br>這也是為什麼相鄰矩陣的空間複雜度為 \( O(n^2) \)。</div>
+                        </details>
+                    </div>
+                    <div class="quiz-item">
+                        <p class="question">Q2: 在 AOV Network 中，如果執行拓樸排序時找不到入度為 0 的點，代表什麼？</p>
+                        <details class="answer-reveal">
+                            <summary>查看答案</summary>
+                            <div class="answer-content"><strong>圖中有迴圈 (Cycle)</strong><br>這表示課程之間互為擋修，無法順利畢業！</div>
+                        </details>
+                    </div>
+                </section>
+            </article>
+
+            <div class="bottom-nav">
+                <button class="nav-btn prev" id="prevBtn" disabled>無上一章</button>
+                <button class="nav-btn next" id="nextBtn">下一章</button>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
