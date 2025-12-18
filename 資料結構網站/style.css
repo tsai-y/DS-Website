@@ -337,3 +337,84 @@ pre { padding: 15px; overflow-x: auto; font-family: monospace; }
         transform: translateX(0);
     }
 }
+
+/* 登入遮罩樣式 */
+.overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(44, 62, 80, 0.95); /* 深色背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; /* 確保在最上層 */
+}
+
+.login-box {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.login-box input {
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* 筆記區樣式 */
+.note-section textarea {
+    width: 100%;
+    height: 150px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #bdc3c7;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+/* 使用者區塊容器 */
+.user-profile {
+    padding: 15px 20px;
+    margin: 10px 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.user-info {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* 登出按鈕樣式 */
+.logout-btn {
+    width: 100%;
+    padding: 6px;
+    background-color: transparent;
+    color: #999;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.logout-btn:hover {
+    background-color: #fff5f5;
+    color: #e74c3c;
+    border-color: #fab1a0;
+}
