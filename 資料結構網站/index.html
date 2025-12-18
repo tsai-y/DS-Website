@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    
     <button id="mobile-menu-btn" class="mobile-menu-toggle">
         <i class="fa-solid fa-bars"></i>
     </button>
@@ -19,6 +20,7 @@
             <div class="brand">
                 <i class="fa-solid fa-code"></i> 資料結構學習網
             </div>
+            
             <nav class="nav-menu">
                 <a href="#" class="nav-item active" data-target="ch1">
                     <i class="fa-solid fa-book-open"></i> CH1: 演算法 & 指標
@@ -42,6 +44,15 @@
                     <i class="fa-solid fa-book-bookmark"></i> 複習中心
                 </a>
             </nav>
+            <div class="user-profile">
+                <div class="user-info">
+                    <i class="fa-solid fa-circle-user"></i>
+                    <span id="display-user">載入中...</span>
+                </div>
+                <button onclick="handleLogout()" class="logout-btn">
+                    <i class="fa-solid fa-right-from-bracket"></i> 登出系統
+                </button>
+            </div>
         </aside>
 
         <main class="content-area">
@@ -342,7 +353,7 @@ int **table_of_table = &grades_table;   // 3. 雙重指標 (指向指標)</code>
                     </div>
 
                     <div class="example-block">
-                        [cite_start]<h4>📝 考題實戰 </h4>
+                        [cite_start]<h4>📝 考題實戰 [cite: 1323-1326]</h4>
                         <p><strong>題目：</strong> \( A[-3:5, -4:2, 1:5] \)，\(\alpha=100\)，\(d=1\)，求 <strong>Row Major</strong> 下 \( A[1,1,3] \) 的位址？</p>
                         <p><strong>解析：</strong></p>
                         <ul>
@@ -994,7 +1005,7 @@ current->rlink = x;        // 4. 前面的人接 x</code></pre>
                         <h2>5.2 圖的表示法 (Representation)</h2>
                         <button class="star-btn"><i class="fa-regular fa-star"></i></button>
                     </div>
-                    [cite_start]<p>電腦記憶體是線性的，如何儲存複雜的圖形關係？主要有兩種方法 [cite: 1748-1756]。</p>
+                    [cite_start]<p>電腦記憶體是線性的，如何儲存複雜的圖形關係？主要有兩種方法 。</p>
 
                     <h3>1. 相鄰矩陣 (Adjacency Matrix)</h3>
                     <p>使用二維陣列 <code>A[n][n]</code>。若頂點 \(i\) 與 \(j\) 有邊，則 <code>A[i][j] = 1</code> (或是權重值)，否則為 0。</p>
@@ -1010,7 +1021,7 @@ current->rlink = x;        // 4. 前面的人接 x</code></pre>
                     </ul>
 
                     <h3>2. 相鄰串列 (Adjacency List)</h3>
-                    [cite_start]<p>使用「陣列 + 鏈結串列」。陣列儲存每個頂點的 Head，鏈結串列串起所有鄰居 。</p>
+                    [cite_start]<p>使用「陣列 + 鏈結串列」。陣列儲存每個頂點的 Head，鏈結串列串起所有鄰居 [cite: 1918-1919]。</p>
                     <div class="visual-box" style="text-align: left; padding-left: 20px;">
                         Vertex 1: -> [2] -> [3] -> NULL<br>
                         Vertex 2: -> [1] -> NULL<br>
@@ -1147,5 +1158,4 @@ current->rlink = x;        // 4. 前面的人接 x</code></pre>
 
     <script src="script.js"></script>
 </body>
-
 </html>
