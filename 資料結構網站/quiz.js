@@ -1,3 +1,10 @@
+// --- 新增：取得當前使用者，若未登入則導回登入頁 ---
+const currentUser = sessionStorage.getItem('ds_user');
+if (!currentUser) {
+    window.location.href = 'login.html';
+}
+// 定義該使用者的專屬錯題 Key
+const USER_WRONG_KEY = `ds_wrong_questions_${currentUser}`;
 /* =========================================
    資料結構題庫系統
    包含 CH1 ~ CH5 及 Final 的題庫
@@ -76,7 +83,7 @@ const questionBank = {
         { q: "什麼情況下 O(n^2) 演算法比 O(n) 快？", o: ["n 很大時", "n 很小時", "永遠不會", "n 為負數時"], a: 1, h: "當 n 很小時，係數影響較大，但 Big O 關注 n 很大時的情況。" },
         { q: "遞迴函式 (Recursive Function) 的空間複雜度主要來自？", o: ["全域變數", "堆疊 (Stack) 深度", "迴圈次數", "硬碟空間"], a: 1, h: "遞迴會佔用 Stack Frame。" },
         { q: "若 int a[10]; *(a+3) 等同於？", o: ["a[3]", "&a[3]", "a[2]", "a[4]"], a: 0, h: "指標運算寫法 *(a+i) 等同於 a[i]。" },
-        { q: "下列何者是正確的指標宣告與初始化？", o: ["int *p = 10;", "int *p = &a;", "int p = &a;", "*p = &a;"], a: 1, h: "int *p 宣告指標，&a 取址賦值 。" }333
+        { q: "下列何者是正確的指標宣告與初始化？", o: ["int *p = 10;", "int *p = &a;", "int p = &a;", "*p = &a;"], a: 1, h: "int *p 宣告指標，&a 取址賦值 。" }
     ],
 
     // === 第二章：陣列 (請擴充至30題) ===
@@ -486,20 +493,19 @@ function checkAnswer(userIndex, btnElement, correctIndex, hint) {
             btnElement.innerHTML += ' <i class="fa-solid fa-check"></i>';
         }
         score += 10; 
+    // ... 前方判斷對錯的邏輯 ...
+
     } else {
         // --- 答錯的情況 ---
         btnElement.classList.add('wrong');
-        // 防止重複加圖標
         if (!btnElement.innerHTML.includes('fa-xmark')) {
             btnElement.innerHTML += ' <i class="fa-solid fa-xmark"></i>';
         }
         
-        // 顯示正確答案 (變綠色)
         const correctBtn = allBtns[correctIndex];
         correctBtn.classList.add('correct');
 
-        // ★★★ 關鍵：儲存錯題到複習中心 (LocalStorage) ★★★
-        // 取得當前題目的完整資料
+        // ★★★ 修正後：儲存錯題到該使用者的專屬 Key ★★★
         const currentQ = currentQuiz[currentQIndex]; 
         const wrongData = {
             question: currentQ.q,
@@ -508,18 +514,15 @@ function checkAnswer(userIndex, btnElement, correctIndex, hint) {
             hint: currentQ.h
         };
 
-        // 讀取瀏覽器目前的錯題紀錄
-        let savedWrongs = JSON.parse(localStorage.getItem('ds_wrong_questions')) || [];
+        // 修改：使用 USER_WRONG_KEY 讀取與存入
+        let savedWrongs = JSON.parse(localStorage.getItem(USER_WRONG_KEY)) || [];
         
-        // 避免重複儲存同一題 (檢查題目文字是否完全相同)
         const isExist = savedWrongs.some(w => w.question === wrongData.question);
         
         if (!isExist) {
             savedWrongs.push(wrongData);
-            // 存回瀏覽器
-            localStorage.setItem('ds_wrong_questions', JSON.stringify(savedWrongs));
+            localStorage.setItem(USER_WRONG_KEY, JSON.stringify(savedWrongs));
         }
-        // ★★★ 儲存結束 ★★★
     }
 
     // 4. 延遲 1.2 秒後跳下一題
