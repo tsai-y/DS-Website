@@ -1,4 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- 新增：取得當前使用者，若未登入則導回登入頁 ---
+    const currentUser = sessionStorage.getItem('ds_user');
+    if (!currentUser) {
+        window.location.href = 'login.html';
+        return;
+    }
+
+    // 將使用者的 Key 定義為全域變數，方便下方所有函式讀取
+    window.USER_BOOKMARK_KEY = `ds_bookmarks_${currentUser}`;
+    window.USER_WRONG_KEY = `ds_wrong_questions_${currentUser}`;
+
     renderReviewContent();
 });
 
@@ -29,9 +40,10 @@ function renderReviewContent() {
     }
 }
 
-// 1. 渲染重點收藏
+// 1. 渲染重點收藏 (修正：使用 USER_BOOKMARK_KEY)
 function renderBookmarks() {
-    const bookmarks = JSON.parse(localStorage.getItem('ds_bookmarks')) || [];
+    // 修改：讀取該使用者的專屬資料
+    const bookmarks = JSON.parse(localStorage.getItem(window.USER_BOOKMARK_KEY)) || [];
     const list = document.getElementById('bookmark-list');
     
     if (bookmarks.length === 0) {
@@ -44,7 +56,6 @@ function renderBookmarks() {
         const div = document.createElement('div');
         div.className = 'review-card fav-card';
         
-        // 移除原本內容中的星號按鈕 HTML (如果有存進去的話)
         let cleanContent = item.content.replace(/<button class="star-btn".*?<\/button>/, '');
 
         div.innerHTML = `
@@ -59,9 +70,10 @@ function renderBookmarks() {
     });
 }
 
-// 2. 渲染錯題本 (修正版：加入刪除按鈕)
+// 2. 渲染錯題本 (修正：使用 USER_WRONG_KEY)
 function renderWrongQuestions() {
-    const wrongs = JSON.parse(localStorage.getItem('ds_wrong_questions')) || [];
+    // 修改：讀取該使用者的專屬資料
+    const wrongs = JSON.parse(localStorage.getItem(window.USER_WRONG_KEY)) || [];
     const list = document.getElementById('wrong-list');
 
     if (wrongs.length === 0) {
@@ -70,13 +82,10 @@ function renderWrongQuestions() {
     }
 
     list.innerHTML = '';
-    // 加入 index 參數，以防題目文字完全相同時刪錯
     wrongs.forEach((q, index) => {
         const div = document.createElement('div');
         div.className = 'review-card wrong-card';
         
-        // ★★★ 新增：這裡加入了刪除按鈕，並傳入 index ★★★
-        // 注意：這裡我們改用 index 來刪除，這樣比較安全（不怕題目文字有引號造成錯誤）
         div.innerHTML = `
             <button class="delete-btn" onclick="removeSingleWrong(${index})" title="移除此題">
                 <i class="fa-solid fa-trash-can"></i>
@@ -97,37 +106,32 @@ function renderWrongQuestions() {
     });
 }
 
-// 移除單一收藏
+// 移除單一收藏 (修正：使用 USER_BOOKMARK_KEY)
 function removeBookmark(title) {
     if(!confirm("確定要移除此收藏嗎？")) return;
 
-    let bookmarks = JSON.parse(localStorage.getItem('ds_bookmarks')) || [];
+    let bookmarks = JSON.parse(localStorage.getItem(window.USER_BOOKMARK_KEY)) || [];
     bookmarks = bookmarks.filter(b => b.title !== title);
-    localStorage.setItem('ds_bookmarks', JSON.stringify(bookmarks));
+    localStorage.setItem(window.USER_BOOKMARK_KEY, JSON.stringify(bookmarks));
     
     renderReviewContent();
 }
 
-// 清空錯題
+// 清空錯題 (修正：使用 USER_WRONG_KEY)
 function clearWrongAnswers() {
     if(confirm("確定要清空所有錯題紀錄嗎？此動作無法復原。")) {
-        localStorage.removeItem('ds_wrong_questions');
+        localStorage.removeItem(window.USER_WRONG_KEY);
         renderReviewContent();
     }
 }
-// ★★★ 新增：移除單一錯題 ★★★
+
+// 移除單一錯題 (修正：使用 USER_WRONG_KEY)
 window.removeSingleWrong = function(index) {
     if(!confirm("確定要移除這道錯題紀錄嗎？")) return;
 
-    // 1. 讀取目前所有錯題
-    let wrongs = JSON.parse(localStorage.getItem('ds_wrong_questions')) || [];
-    
-    // 2. 刪除指定索引的那一題 (splice: 從 index 位置刪除 1 個元素)
+    let wrongs = JSON.parse(localStorage.getItem(window.USER_WRONG_KEY)) || [];
     wrongs.splice(index, 1);
+    localStorage.setItem(window.USER_WRONG_KEY, JSON.stringify(wrongs));
     
-    // 3. 存回 LocalStorage
-    localStorage.setItem('ds_wrong_questions', JSON.stringify(wrongs));
-    
-    // 4. 重新渲染畫面
     renderReviewContent();
 }
