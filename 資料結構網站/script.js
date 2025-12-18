@@ -1,5 +1,20 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- 取得當前使用者 ---
+    const currentUser = sessionStorage.getItem('ds_user');
+    if (!currentUser) {
+        window.location.href = 'login.html'; 
+        return;
+    }
+
+    // ★ 新增：將名字顯示在側邊欄 (假設你的 HTML id 是 display-user)
+    const displayUserEl = document.getElementById('display-user');
+    if (displayUserEl) {
+        displayUserEl.innerText = currentUser;
+    }
+
+    const USER_BOOKMARK_KEY = `ds_bookmarks_${currentUser}`;
     
+    // ... 後面接你原本的章節切換邏輯 ...
     // --- 1. 章節切換邏輯 ---
     const navItems = document.querySelectorAll('.nav-item');
     const chapters = document.querySelectorAll('.chapter');
@@ -101,54 +116,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- 3. 進度條邏輯 ---
-    function updateProgress() {
-        // 簡單計算：讀到第幾章 / 總章節數
-        const percentage = Math.round(((currentChapterIndex + 1) / chapterIds.length) * 100);
-        progressFill.style.width = percentage + '%';
-        progressText.textContent = percentage + '%';
-    }
 
-    // --- 4. 星號收藏功能 (含 LocalStorage 儲存) ---
+
+    // --- 4. 星號收藏功能 (修正版) ---
     const starBtns = document.querySelectorAll('.star-btn');
     
     // 初始化：檢查是否已收藏
     starBtns.forEach(btn => {
-        // 找到標題文字作為 ID
         const sectionTitle = btn.parentElement.querySelector('h2').innerText;
-        const savedBookmarks = JSON.parse(localStorage.getItem('ds_bookmarks')) || [];
+        const savedBookmarks = JSON.parse(localStorage.getItem(USER_BOOKMARK_KEY)) || [];
         
-        // 如果已在收藏清單中，點亮星星
         if (savedBookmarks.some(b => b.title === sectionTitle)) {
             btn.classList.add('starred');
             btn.innerHTML = '<i class="fa-solid fa-star"></i>';
         }
 
         btn.addEventListener('click', function() {
-            // 找到這一整個章節區塊 (.learning-section)
             const section = this.closest('.learning-section');
             const title = section.querySelector('h2').innerText;
-            const contentHTML = section.innerHTML; // 抓取整個內容
+            const contentHTML = section.innerHTML; 
 
-            // 讀取舊資料
-            let bookmarks = JSON.parse(localStorage.getItem('ds_bookmarks')) || [];
+            // 1. 讀取該使用者的舊資料
+            let bookmarks = JSON.parse(localStorage.getItem(USER_BOOKMARK_KEY)) || [];
 
             if (this.classList.contains('starred')) {
-                // 取消收藏
+                // --- 取消收藏邏輯 ---
                 this.classList.remove('starred');
                 this.innerHTML = '<i class="fa-regular fa-star"></i>';
-                // 過濾掉這個標題
                 bookmarks = bookmarks.filter(b => b.title !== title);
             } else {
-                // 加入收藏
+                // --- 加入收藏邏輯 ---
                 this.classList.add('starred');
                 this.innerHTML = '<i class="fa-solid fa-star"></i>';
-                // 存入標題與 HTML 內容
+                
+                // ★ 修正點 1：必須把新內容 push 進去陣列
                 bookmarks.push({ title: title, content: contentHTML });
             }
 
-            // 存回 LocalStorage
-            localStorage.setItem('ds_bookmarks', JSON.stringify(bookmarks));
+            // 2. ★ 修正點 2：統一存回該使用者的專屬 Key
+            localStorage.setItem(USER_BOOKMARK_KEY, JSON.stringify(bookmarks));
+            
+            // 可選：console 檢查是否成功
+            console.log(`儲存成功！目前 ${currentUser} 的收藏數：`, bookmarks.length);
         });
     });
 
@@ -169,9 +178,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 sidebar.classList.remove('show');
             }
         });
+        
     }
 
     // 初始化介面狀態
     updateButtons();
     updateProgress();
 });
+// ... 原本代碼的最後一個 }); 之後 ...
+
+// --- 全域登出函式 ---
+function handleLogout() {
+    if (confirm("確定要登出系統嗎？\n您的學習紀錄將會安全儲存。")) {
+        // 清除 Session (登入狀態)
+        sessionStorage.removeItem('ds_user');
+        // 跳轉回登入頁
+        window.location.href = 'login.html';
+    }
+}
+
